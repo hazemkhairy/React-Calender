@@ -1,0 +1,62 @@
+.container{
+    transition: all .2s ease-in-out;
+    border: 2px solid rgba(12,12,12,0.3);
+    
+    width: 100%;
+    margin-top: 10%;
+    height: 100%;
+
+    overflow-y: hidden;
+    overflow-x: hidden;
+    text-align: center;
+    flex:1;
+    display: flex;
+    flex-direction: column;
+}
+.eventContainer{
+    border:1px solid black;
+    margin: 5%;
+    padding: 3%;
+}
+.eventName{
+    margin: 0%;
+}
+.container:hover{
+    transform: scale(1.1);
+}
+.invalid{
+    background-color: gray;
+    cursor: not-allowed;
+
+}
+.valid{
+    cursor: pointer;
+    
+}
+.textTopLeft{
+    color: red;
+    margin: 0;
+    text-align: start;
+    flex:1;
+}
+.textCenter{
+    color: blue;
+
+    flex:1;
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
