@@ -20,7 +20,9 @@ const CalenderItem = ({ data, events }) => {
                 setInvalid(true);
             }
             setLoading(false);
-        }, []
+        }
+        // eslint-disable-next-line
+        , []
     )
     if (loading) {
         return <CircularProgress />
