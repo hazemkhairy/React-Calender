@@ -1,24 +1,27 @@
 
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react'
 
-import store from './store/index';
+import { store, persistor } from './store/index';
 import './App.css';
-import CalenderList from './components/calender/calender-list/calender-list';
-import Footer from './components/calender/calender-footer/calender-footer';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Calender from './components/calender/calender';
+
+import DayDetails from './components/calender/Day-Details/Day-Details';
 
 function App() {
   return (
 
     <Provider store={store}>
-      <div style={{ flex: 1, display: "flex", flexDirection: 'column' }}>
-        <div style={{ flex: 1,maxHeight:'70%' }}>
-          <CalenderList></CalenderList>
-        </div>
-        <div style={{ flex: 1 }}>
+      <PersistGate loading={null} persistor={persistor}>
 
-          <Footer></Footer>
-        </div>
-      </div>
+        <BrowserRouter>
+          <Switch>
+            <Route path={"/dayDetails/:id"} exact component={DayDetails} />
+            <Route path={"/"} component={Calender} />
+          </Switch>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }

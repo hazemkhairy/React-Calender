@@ -3,11 +3,16 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Styles from './calender-item.module.css';
 import { dateToString } from '../../../utils/helperFunctions'
-import { Button } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
 const CalenderItem = ({ data, events }) => {
     const [invalid, setInvalid] = useState(false);
     const [loading, setLoading] = useState(true);;
+    const history = useHistory();
+    const handleNavigate =  ()=>{
+        console.log('x')
+        history.push(`/dayDetails/${dateToString(data)}`)
+    }
     useEffect(
         () => {
             let temp = new Date();
@@ -34,7 +39,7 @@ const CalenderItem = ({ data, events }) => {
         return temp;
     }
     return (
-        <div className={Styles.container + ' ' + (invalid ? Styles.invalid : Styles.valid)}  >
+        <div onClick={handleNavigate}  className={Styles.container + ' ' + (invalid ? Styles.invalid : Styles.valid)}  >
             <h5 className={events ? Styles.textTopLeft : Styles.textCenter}>
                 {data.getDate()}
             </h5>
