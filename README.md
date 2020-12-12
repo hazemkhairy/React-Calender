@@ -9,7 +9,7 @@
 - [X] Display Event Name on day
 - [X] Add page for day's agenda/details
 - [X] On Day click navigate to The day's agenda
-- [ ] Presist Data on refresh
+- [X] Presist Data on refresh
 - [ ] Create Widgets
 - [ ] Deploy on netlify
 - [ ] Add Some Styles
