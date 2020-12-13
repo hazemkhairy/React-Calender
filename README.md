@@ -11,6 +11,9 @@
 - [X] On Day click navigate to The day's agenda
 - [X] Presist Data on refresh
 - [ ] Create Widgets
-- [ ] Deploy on netlify
+- [X] Deploy on netlify
 - [ ] Add Some Styles
+## Deployment
+### Find the Deployed version [here](https://hungry-raman-ebe313.netlify.app/)
+
 ### Note: I know It should be "Calendar" instead of "Calender" :'D 
