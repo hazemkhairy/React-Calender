@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import CalenderItem from '../calender-item/calender-item'
-import CalenderHeader from '../calender-header/calender-header'
+import ColumnItem from '../column-item/column-item'
+import ColumnHeader from '../column-header/column-header'
 import styles from './calender-list.module.css'
 import { useSelector } from 'react-redux'
 import { dateToString } from '../../../utils/helperFunctions'
@@ -11,11 +11,13 @@ const CalenderList = () => {
     })
     const [monthData, SetMonthData] = useState([]);
     const [loading, setLoading] = useState(true);
-    
+    const targetMonth = useSelector((store)=>{
+        return store.calenderDay
+    })
     useEffect(
         () => {
             setLoading(true);
-            const today = new Date()
+            const today = new Date(targetMonth)
             const temp = [];
             for (let i = 0; i < 35; i++) {
 
@@ -25,22 +27,23 @@ const CalenderList = () => {
             SetMonthData(temp);
             setLoading(false)
         }
-        , []
+        , [targetMonth]
     )
     const fillColumnDays = (dayNumber) => {
         let temp = [];
         for (let i = dayNumber; i < monthData.length; (i += 7)) {
-            temp.push(<CalenderItem
+            temp.push(<ColumnItem
                 key={dateToString(monthData[i])}
                 data={monthData[i]}
                 events={events[dateToString(monthData[i])]}
+                invalid ={monthData[i].getMonth() !== new Date(targetMonth).getMonth()}
             />);
         }
         return temp
     }
     const getColumn = (dayNumber) => {
         return <div key={`C${dayNumber}`} className={styles.column} >
-            <CalenderHeader key={`H${dayNumber}`} data={monthData[dayNumber]} />
+            <ColumnHeader key={`H${dayNumber}`} data={monthData[dayNumber]} />
             {fillColumnDays(dayNumber)}
         </div>
     }

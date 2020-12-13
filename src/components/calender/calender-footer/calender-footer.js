@@ -1,31 +1,26 @@
-import React, { useState } from 'react';
-
-import Button from '@material-ui/core/Button';
-import AddEventModal from '../add-event-modal/add-event-modal';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import AddEventModalButton from '../add-event-modal/add-event-modal-button';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
 
     container: {
         display: 'flex',
+        flexDirection:'row-reverse',
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'end',
         padding: '2% 2%'
     },
 }));
 const Footer = () => {
-    const [addModalOpen, setAddModalOpen] = useState(false);
 
     const classes = useStyles();
+
+
     return <div className={classes.container}>
-        <AddEventModal
-            isOpen={addModalOpen}
-            handleClose={() => { setAddModalOpen(false) }}
-        />
-        <Button variant="contained" color="primary" onClick={() => { setAddModalOpen(true) }}>
-            Add
-        </Button>
+
+        <AddEventModalButton />
     </div>
 }
 export default Footer;

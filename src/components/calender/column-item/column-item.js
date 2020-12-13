@@ -1,31 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-
-import Styles from './calender-item.module.css';
+import React from 'react';
+import Styles from './column-item.module.css';
 import { dateToString } from '../../../utils/helperFunctions'
 import { useHistory } from 'react-router-dom';
 
-const CalenderItem = ({ data, events }) => {
-    const [invalid, setInvalid] = useState(false);
-    const [loading, setLoading] = useState(true);;
+const ColumnItem = ({ data, events,invalid }) => {
     const history = useHistory();
-    const handleNavigate =  ()=>{
+    const handleNavigate = () => {
         console.log('x')
         history.push(`/dayDetails/${dateToString(data)}`)
-    }
-    useEffect(
-        () => {
-            let temp = new Date();
-            if (data.getMonth() !== temp.getMonth()) {
-                setInvalid(true);
-            }
-            setLoading(false);
-        }
-        // eslint-disable-next-line
-        , []
-    )
-    if (loading) {
-        return <CircularProgress />
     }
     const getSample = () => {
         let temp = [];
@@ -41,7 +23,7 @@ const CalenderItem = ({ data, events }) => {
         return temp;
     }
     return (
-        <div onClick={handleNavigate}  className={Styles.container + ' ' + (invalid ? Styles.invalid : Styles.valid)}  >
+        <div onClick={handleNavigate} className={Styles.container + ' ' + (invalid ? Styles.invalid : Styles.valid)}  >
             <h5 className={events ? Styles.textTopLeft : Styles.textCenter}>
                 {data.getDate()}
             </h5>
@@ -53,4 +35,4 @@ const CalenderItem = ({ data, events }) => {
     )
 
 }
-export default CalenderItem
+export default ColumnItem

@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import { addEvent } from '../../../store/action'
-import { dateToString } from '../../../utils/helperFunctions'
-const useStyles = makeStyles((theme) => ({
+import { dateToString, getFormatedISO } from '../../../utils/helperFunctions'
+const useStyles = makeStyles(() => ({
     modal: {
         display: 'flex',
         alignItems: 'center',
@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const AddEventModal = ({ isOpen, handleClose }) => {
+const AddEventModal = ({ isOpen, handleClose, desiredDate }) => {
     const [name, setName] = useState('');
     const [descripition, setDescripition] = useState('');
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState(desiredDate ? desiredDate : new Date());
     const dispatch = useDispatch();
     const classes = useStyles();
     const handleSubmit = (e) => {
@@ -43,9 +43,9 @@ const AddEventModal = ({ isOpen, handleClose }) => {
         dispatch(addEvent({ name, descripition, date, id: dateToString(date) }))
         setName('');
         setDescripition('');
-        setDate(new Date());
+        setDate(desiredDate ? desiredDate : new Date());
         handleClose();
-        
+
     }
     return <Modal
         open={isOpen}
@@ -84,13 +84,17 @@ const AddEventModal = ({ isOpen, handleClose }) => {
                     type="datetime-local"
                     id="date"
                     label="Day"
-                    value={date.toISOString().slice(0, 16)}
+                    value={getFormatedISO(date) || date.toISOString().slice(0, 16)}
+
                     onChange={(e) => { setDate(new Date(e.target.value)) }}
                     InputLabelProps={{
                         shrink: true,
                     }}
                 />
-                <Button type="submit" variant="contained" color="primary">Add</Button>
+                <div>
+
+                    <Button type="submit" variant="contained" color="primary">Add</Button>
+                </div>
             </form>
         </div>
     </Modal>

@@ -1,6 +1,7 @@
-import { Add_Event } from './action';
+import { Add_Event, Change_Calender_Day } from './action';
 const initialState = {
-    dayEvents: {}
+    dayEvents: {},
+    calenderDay: new Date()
 }
 
 
@@ -10,8 +11,12 @@ const reducer = (state = initialState, action) => {
             const temp = { ...state.dayEvents }
             if (!temp[action.payload.event.id])
                 temp[action.payload.event.id] = []
-            temp[action.payload.event.id].push(action.payload.event)
+            const temp2 = [...temp[action.payload.event.id]]
+            temp2.push(action.payload.event)
+            temp[action.payload.event.id] = [...temp2]
             return { ...state, dayEvents: temp };
+        case Change_Calender_Day:
+            return { ...state, calenderDay: action.payload.newDate }
         default:
             return state;
     }

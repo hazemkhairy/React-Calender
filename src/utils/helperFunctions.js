@@ -12,5 +12,11 @@ export const stringToDate = (s) => {
     let month = s.slice(4, 6);
     let day = s.slice(6, 8)
     let ret = new Date(Number(year), Number(month), Number(day))
+    console.log('r', ret)
     return ret;
+}
+export const getFormatedISO = (date) => {
+    let tzoffset = (new Date()).getTimezoneOffset()*60000;
+    let ret = (new Date(date - tzoffset)).toISOString().slice(0, 16);
+    return ret
 }

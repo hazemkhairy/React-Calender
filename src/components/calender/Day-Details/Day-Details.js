@@ -9,6 +9,7 @@ import { TreeItem, TreeView } from '@material-ui/lab';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom'
 import { stringToDate } from '../../../utils/helperFunctions'
+import AddEventModalButton from '../add-event-modal/add-event-modal-button';
 
 const useStyle = makeStyles((theme) => ({
     mainContainer: {
@@ -23,6 +24,12 @@ const useStyle = makeStyles((theme) => ({
         justifyContent: 'center',
         border: '2px double #000',
         backgroundColor: '#11111111',
+    },
+    eventContainer: {
+        border: '1px solid #000',
+        padding: '0% 2%',
+        margin: '1% 0%',
+        borderRadius: '10px'
     }
 }));
 
@@ -33,8 +40,6 @@ const DayDetails = () => {
     const events = useSelector((store) => {
         return store.dayEvents[id];
     })
-    if (!events || !events.length)
-        return <h1>This day has No Events</h1>
 
     const getEventsSorted = () => {
         let ret = {};
@@ -61,12 +66,15 @@ const DayDetails = () => {
 
                 hourTree.push(
                     <TreeItem
-                        key={event.date.toString()}
-                        nodeId={event.date.toString()}
+                        key={event.date.toString()+i.toString()}
+                        nodeId={event.date.toString()+i.toString()}
                         label={timeString + ': ' + event.name} >
-                        <h4>
-                            {event.descripition}
-                        </h4>
+                        <div className={classes.eventContainer}>
+
+                            <h4>
+                                {event.descripition}
+                            </h4>
+                        </div>
 
                     </TreeItem>
                 )
@@ -90,13 +98,24 @@ const DayDetails = () => {
         <div className={classes.headerContainer}>
             <h1>{date.toDateString()}</h1>
         </div>
-        <TreeView
-            className={classes.root}
-            defaultCollapseIcon={<ExpandMoreIcon />}
-            defaultExpandIcon={<ChevronRightIcon />}
-        >
-            {getContent()}
-        </TreeView>
+
+        {(() => {
+            if (!events || !events.length)
+                return <h1>This day has No Events</h1>
+            else
+                return <TreeView
+                    className={classes.root}
+                    defaultCollapseIcon={<ExpandMoreIcon />}
+                    defaultExpandIcon={<ChevronRightIcon />}
+                >
+                    {getContent()}
+                </TreeView>
+        })()
+        }
+        <div style={{ display: 'flex',flexDirection:'row-reverse',alignItems:'end', justifyContent: 'end' }}>
+
+            <AddEventModalButton desiredDate={date} />
+        </div>
     </div>
 }
 export default DayDetails;
